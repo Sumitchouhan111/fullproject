@@ -1,0 +1,144 @@
+body{
+  background-color: rgb(0, 0, 0);
+  overflow: hidden;
+ 
+  margin: 0%;
+  padding: 0%;
+  height: 100vh;
+ 
+}
+
+
+.loginpage {
+  margin: 0%;
+  padding: 0%;
+  background-image: url('logocha.png');
+ 
+  background-size: 100vw 100vh;
+  background-repeat:no-repeat;
+  
+    opacity: 1;
+  
+  background-blend-mode: darken;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  }
+
+  .logincom{
+   
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    
+    
+    border-radius: 12px;
+   
+    color: rgb(170, 157, 157);
+    text-align: center;
+  
+    justify-content: center;
+    margin: 20%;
+ 
+   
+    
+    
+  }
+
+  .logincom input{
+   width: 70%;
+   
+    background: transparent;
+    border-radius: 12px;
+   
+    color: rgb(141, 135, 135);
+    text-align: center;
+    margin-bottom: 3%;
+    margin-left: 15%;
+   
+  }
+
+  
+
+  .logincom input::placeholder{
+   
+    background: transparent;
+    color: rgb(252, 252, 252);
+    text-align: center; 
+    
+   
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;  
+}
+
+
+
+.signuppage {
+  margin: 0%;
+  padding: 0%;
+  background-image: url('logocha.png');
+ 
+  background-size: 100vw 100vh;
+  background-repeat:no-repeat;
+  
+    opacity: 1;
+  
+  background-blend-mode: darken;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  }
+
+  .singupcom{
+   
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    
+    
+    border-radius: 12px;
+   
+    color: rgb(170, 157, 157);
+    text-align: center;
+  
+    justify-content: center;
+    margin: 20%;
+ 
+   
+    
+    
+  }
+
+  .singupcom input{
+    width: 40%;
+    
+     background: transparent;
+     border-radius: 12px;
+    
+     color: rgb(141, 135, 135);
+     text-align: center;
+     margin-bottom: 3%;
+     margin-left: 30%;
+    
+   }
+
+     .singupcom input::placeholder{
+   
+    background: transparent;
+    color: rgb(255, 255, 255);
+    text-align: center; 
+    
+   
+  }
+

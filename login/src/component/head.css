@@ -1,0 +1,34 @@
+.sidebar {
+    width: 60px; /* Reduced the width */
+    background-color: aqua;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .sidebar li {
+    margin: 20px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .icon {
+    color: black; /* Customize icon color */
+    font-size: 28px; /* Customize icon size */
+  }
+  
+  /* Hide the text */
+  .text {
+    display: none;
+  }
+  
