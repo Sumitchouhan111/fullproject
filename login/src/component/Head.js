@@ -33,8 +33,10 @@ import Showsinglepost from './showsinglepost';
 import SearchIcon from '@mui/icons-material/Search';
 import Serch from './Serch';
 import Anotheruserprofile from './Anotheruserprofile';
+import CheckFollowList from './checkfollowlist';
+import CheckFollowingList from './checkfollowing';
 const drawerWidth = 240;
-
+var token = localStorage.getItem('token')
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -83,7 +85,7 @@ const menuItems = [
   { text: 'Home', icon: <HomeIcon />, path: '/' },
   { text: 'Notifications', icon: <NotificationsIcon />, path: '/notifications' },
   {text:'Serch',icon:<SearchIcon/>,path:'/serch'},
-  { text: 'Reel', icon: <MovieIcon />, path: '/reel' },
+
   { text: 'Message', icon: <MailIcon />, path: '/inbox' },
   {text:"Status",icon:<AllInclusiveIcon/>,path:"/status"},
   { text: 'Create', icon: <AddCircleIcon />, path: '/create' },
@@ -98,7 +100,11 @@ var usermen='';
 try {
   let data = await axios.post("http://localhost:4000/user/data",{
     email:localStorage.getItem('email')
-  })
+  },{
+    headers: {
+     Authorization: `Bearer ${token}` 
+   }
+ })
     usermen =data.data.ans;
     console.log(usermen);
     
@@ -165,6 +171,8 @@ export default function Head() {
           <Route path="/singlepost/:postdata" element={<Showsinglepost/>}/>
           <Route path="/serch" element={<Serch/>}/>
           <Route path='/anotheruserprofile/:uid' element={<Anotheruserprofile/>}/>
+          <Route path='/checkfollowlist/:uid' element={<CheckFollowList/>}/>
+          <Route path='/checkfollowing/:uid' element={<CheckFollowingList/>}/>
           
         </Routes>
         </Usermendata.Provider>

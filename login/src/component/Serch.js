@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router';
 import './border.css'
 
 
-
+var token = localStorage.getItem('token')
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -46,7 +46,11 @@ async function serchuserdata(params) {
   try {
     let data = await axios.post('http://localhost:4000/user/serchuser',{
       serchdata:serchtext
-    })
+    },{
+      headers: {
+       Authorization: `Bearer ${token}` 
+     }
+   })
     setcatchserchdata(data.data.data);
     
   } catch (error) {

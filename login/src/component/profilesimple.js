@@ -9,11 +9,12 @@ import './border.css'
 import png from '../logocha.png'
 import gpg from '../gpg.webp'
 import axios from 'axios';
+var token = localStorage.getItem('token')
 function Profilesimple() {
 
     const data=useContext(Usermendata);
     console.log(data.usermen.id);
-    
+    const [followfollowingnumber,setfollowfollowingnumber]=useState([0,0]);
 
     const navigate=useNavigate();
     const [allpost,setallpost]=useState([]);
@@ -31,11 +32,11 @@ function Profilesimple() {
         try {
             let up= await axios.post("http://localhost:4000/post/findpost",{
                 userid:data.usermen.id
-            }, {
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-              }
+            },{
+              headers: {
+               Authorization: `Bearer ${token}` 
+             }
+           }
         )
 
         let s=up.data.ans;
@@ -50,27 +51,43 @@ function Profilesimple() {
         }
     }
 
+    async function followcount(params) {
+    
+      try {
+       
+        let followc = await axios.post("http://localhost:4000/follow/followfollowingcount",{
+          userid:data.usermen.id
+        },{
+          headers: {
+           Authorization: `Bearer ${token}` 
+         }
+       })
+        console.log("follow following count ",followc);
+        setfollowfollowingnumber(followc.data.ans)
+      
+      } catch (error) {
+        alert("error in followfollowingcount")
+      }
+    }
      
     useEffect(() => {
         const fetchdata = async () => {
           const posts = await userpostdata();
+          followcount();
           setallpost(posts);
-          
+         
          
           
         };
         fetchdata();
-      }, []);
-
+      }, [data]);
+   
 
       async function seepost(params) {
        
       
     const data = params.postid;
     console.log('dataa check',data);
-    
-   
-
     navigate(`/singlepost/${data}`);
       }
       
@@ -112,14 +129,14 @@ function Profilesimple() {
                     </div>
 
 
-                    <div className="col text-info text-center mt-2">
-                    <p className='text-info  mb-0'>0</p>
+                    <div className="col text-info text-center mt-2" onClick={()=>navigate(`/checkfollowlist/${data.usermen.id}`)}>
+                    <p className='text-info  mb-0'>{followfollowingnumber[1]}</p>
                         <h4 class="fw-normal text-info " >followers</h4>
 
                     </div>
 
-                    <div className="col text-center mt-2">
-                    <p className='text-info  mb-0'>0</p>
+                    <div className="col text-center mt-2" onClick={()=>navigate(`/checkfollowing/${data.usermen.id}`)}>
+                    <p className='text-info  mb-0'>{followfollowingnumber[0]}</p>
                         <h4 class="fw-normal text-info ">following</h4>
                     </div>
 

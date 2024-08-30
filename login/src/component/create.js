@@ -7,7 +7,7 @@ import { Usermendata } from './Head';
 
 import './border.css'
 import axios from 'axios';
-
+var token=localStorage.getItem('token')
 
 function Create() {
   const contentRef = useRef();
@@ -40,11 +40,11 @@ function Create() {
                
                 imgvideo:data.url, caption:content, mediatype:"img",id:userdatamain.usermen.id
 
-              }, {
-                  headers: {
-                    'Content-Type': 'application/json'
-                  }
-                }
+              },{
+                headers: {
+                 Authorization: `Bearer ${token}` 
+               }
+             }
           )
              return alert("post create succesfull");
           } catch (error) {

@@ -8,7 +8,7 @@ import { colors } from '@mui/material';
 import axios from 'axios';
 import { json } from 'react-router';
 
-
+var token = localStorage.getItem('token');
 console.log(1212121);
 
 function EditProfile() {
@@ -50,11 +50,11 @@ function EditProfile() {
                         email:localStorage.getItem('email'),
                         profilepic:s
 
-                    }, {
+                    },{
                         headers: {
-                          'Content-Type': 'application/json'
-                        }
-                      }
+                         Authorization: `Bearer ${token}` 
+                       }
+                     }
                 )
                    return alert("update profile successfully ");
                 } catch (error) {
@@ -78,7 +78,11 @@ function EditProfile() {
             let upbio=await axios.put("http://localhost:4000/user/updatebio",{
                 email:localStorage.getItem('email'),
                 bio
-            })
+            },{
+                headers: {
+                 Authorization: `Bearer ${token}` 
+               }
+             })
             alert("data update");
           } catch (error) {
             alert(error)

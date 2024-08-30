@@ -24,7 +24,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { Usermendata } from './Head';
-
+var token = localStorage.getItem('token');
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -44,9 +44,11 @@ function Showsinglepost() {
   const [postuser,setpostuser]=useState({});
   const [loding,setloading]=useState(true);
   const [color,setcolor]=useState("white");
+  const [countlike,setcountlike]=useState(0);
+  var userdata = useContext(Usermendata);
   // var params;
 
-  console.log('asfsdf',postdata);
+  console.log('asfsdf',userdata);
   
 
 
@@ -66,7 +68,11 @@ function Showsinglepost() {
     try {
       let finalpostdata=await axios.post("http://localhost:4000/post/findsinglepost",{
         postid:postidint
-      })
+      },{
+        headers: {
+         Authorization: `Bearer ${token}` 
+       }
+     })
       console.log("data axios successfully",finalpostdata.data.ans);
       
       setpdata( finalpostdata.data.ans);     
@@ -82,21 +88,57 @@ function Showsinglepost() {
 
     async function checklike(params) {
       try {
-        let result = await axios.post("http://localhost:4000/user/likepost",{
+          console.log(parseInt(postdata),"sfsdf",1212121,"sfsdfsdf",userdata.usermen.id);
           
-        })
+        let result = await axios.post("http://localhost:4000/postlike/finduserpostlike",{
+            postid: parseInt(postdata),
+            userid:userdata.usermen.id
+        },{
+          headers: {
+           Authorization: `Bearer ${token}` 
+         }
+       })
+
+        setcolor("red")
+        
       } catch (error) {
+        // alert("error in checklikes")
+        console.log(error);
         
       }
     }
 
 
+    async function likecount(params) {
+      try {
+        let countlikee = await axios.post("http://localhost:4000/postlike/likescount",{
+          postid:parseInt(postdata)
+        },{
+          headers: {
+           Authorization: `Bearer ${token}` 
+         }
+       })
+        setcountlike(countlikee.data.ans)
+        console.log("total likes in this post " ,countlike);
+        
+      } catch (error) {
+        // console.log(error);
+        // alert("error in like count")
+      }
+    }
+
+
+
     useEffect(() => {
       postdatafunction();
+      likecount()
+      checklike();
+
     }, [postdata])
 
     useEffect(()=>{
       userpostdata();
+    
     },[pdata])
     
    console.log("vikas",pdata);
@@ -110,11 +152,11 @@ function Showsinglepost() {
         
           let up= await axios.post("http://localhost:4000/user/findbyid",{
               id:pdata.userId
-          }, {
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }
+          },{
+            headers: {
+             Authorization: `Bearer ${token}` 
+           }
+         }
       )
 
       let s=up.data.ans;
@@ -130,6 +172,51 @@ function Showsinglepost() {
   }
 
   console.log("userpostdata",postuser);
+
+  async function likef(params) {
+    if (color=="white") {
+      try {
+        console.log("check in like ",parseInt(postdata),"safdsf",userdata.usermen.id);
+        
+        let likesucessfull = await axios.post("http://localhost:4000/postlike/likepost",{
+          postid:parseInt(postdata),
+          userid:userdata.usermen.id
+        },{
+          headers: {
+           Authorization: `Bearer ${token}` 
+         }
+       })
+        setcountlike(countlike+1)
+      
+        setcolor("red");
+      } catch (error) {
+        console.log("error in like ",error);
+        
+        // alert("error in like ")
+      }
+    }
+    else{
+      try {
+        let unlike =await axios.delete("http://localhost:4000/postlike/delete",{
+          data:{
+            postid:parseInt(postdata),
+            userid:userdata.usermen.id
+          }
+         
+        ,
+          headers: {
+           Authorization: `Bearer ${token}` 
+         }
+       })
+        setcolor("white");
+        setcountlike(countlike-1);
+      } catch (error) {
+        console.log("error in unlike");
+        
+        alert("error in unlike ")
+      }
+    }
+  }
   
 
   if (loding) {
@@ -173,9 +260,12 @@ function Showsinglepost() {
       </div>
      
       <CardActions disableSpacing className="form-container" style={{borderRadius:"1%"}}>
-        <IconButton aria-label="add to favorites" className="form-container " style={{marginRight:"10px"}}>
+        <IconButton aria-label="add to favorites" className="form-container " style={{marginRight:"4px"}} onClick={likef}>
           <FavoriteIcon style={{color:color}}   />
+         
+         
         </IconButton>
+        <p style={{color:"white",marginRight:"10px",cursor:"pointer"}}>{countlike}</p>
         <IconButton aria-label="add to favorites" className="form-container" style={{marginRight:"10px"}}>
           <CommentIcon style={{color:"white"}}  />
         </IconButton>
@@ -207,3 +297,6 @@ function Showsinglepost() {
 }
 
 export default Showsinglepost;
+
+
+

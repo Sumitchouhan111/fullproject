@@ -10,12 +10,15 @@ import png from '../logocha.png'
 import gpg from '../gpg.webp'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+
+
+var token = localStorage.getItem('token');
  function Anotheruserprofile() {
   const { uid } = useParams();
     const [userdata,setuserdata]=useState(null)
     const [allpost,setallpost]=useState(null);
     const [follow,setfollow]=useState('follow');
-   
+    const [followfollowingnumber,setfollowfollowingnumber]=useState([0,0]);
     console.log("asdf",userdata);
     console.log("jkl;",allpost);
     
@@ -36,6 +39,7 @@ import { useParams } from 'react-router-dom';
 
         const posts = await userpostdata();
         setallpost(posts);
+        followcount();
 
       };
       fetchdata();
@@ -45,7 +49,9 @@ import { useParams } from 'react-router-dom';
     const navigate=useNavigate();
    
         
- 
+    if (data.usermen.id==parseInt(uid)) {
+      navigate("/profile");
+    }
   
 
     function handleClick(params) {
@@ -62,7 +68,11 @@ import { useParams } from 'react-router-dom';
         const followdata = await axios.post("http://localhost:4000/follow/followstart",{
           userfollowid:data.usermen.id,
           userfollowingid:userdataint
-        })
+        },{
+          headers: {
+           Authorization: `Bearer ${token}` 
+         }
+       })
       
         setfollow("unfollow")
        
@@ -81,7 +91,11 @@ import { useParams } from 'react-router-dom';
             userfollowingid:userdataint
           }
          
-        })
+        ,
+          headers: {
+           Authorization: `Bearer ${token}` 
+         }
+       })
 
         setfollow("follow")
       } catch (error) {
@@ -97,7 +111,12 @@ import { useParams } from 'react-router-dom';
         try {
           let sdata = await axios.post("http://localhost:4000/user/findbyid",{
             id:userdataint
-          })
+          },{
+             headers: {
+              Authorization: `Bearer ${token}` 
+            }
+          }
+        )
            
           console.log("another user data",data);
           
@@ -115,7 +134,24 @@ import { useParams } from 'react-router-dom';
         }
       }
     
-
+      async function followcount(params) {
+    
+        try {
+         
+          let followc = await axios.post("http://localhost:4000/follow/followfollowingcount",{
+            userid:userdataint
+          },{
+            headers: {
+             Authorization: `Bearer ${token}` 
+           }
+         })
+          console.log("follow following count ",followc);
+          setfollowfollowingnumber(followc.data.ans)
+        
+        } catch (error) {
+          alert("error in followfollowingcount")
+        }
+      }
 
    
 
@@ -125,11 +161,11 @@ import { useParams } from 'react-router-dom';
         try {
             let up= await axios.post("http://localhost:4000/post/findpost",{
                 userid:userdataint
-            }, {
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-              }
+            },{
+              headers: {
+               Authorization: `Bearer ${token}` 
+             }
+           }
         )
 
         let s=up.data.ans;
@@ -150,7 +186,11 @@ import { useParams } from 'react-router-dom';
         let s =await axios.post("http://localhost:4000/follow/findfollow",{
           userfollowid:data.usermen.id,
           userfollowingid:userdataint
-        })
+        },{
+          headers: {
+           Authorization: `Bearer ${token}` 
+         }
+       })
         console.log("backendfectdata",s);
         
         if (s) {
@@ -216,14 +256,14 @@ import { useParams } from 'react-router-dom';
                     </div>
 
 
-                    <div className="col text-info text-center mt-2">
-                    <p className='text-info  mb-0'>0</p>
+                    <div className="col text-info text-center mt-2" style={{cursor:"pointer"}} onClick={()=> navigate(`/checkfollowlist/${uid}`)}>
+                    <p className='text-info  mb-0'>{followfollowingnumber[1]}</p>
                         <h4 class="fw-normal text-info " >followers</h4>
 
                     </div>
 
-                    <div className="col text-center mt-2">
-                    <p className='text-info  mb-0'>0</p>
+                    <div className="col text-center mt-2" style={{cursor:"pointer"}} onClick={()=> navigate(`/checkfollowing/${uid}`)}>
+                    <p className='text-info  mb-0'>{followfollowingnumber[0]}</p>
                         <h4 class="fw-normal text-info ">following</h4>
                     </div>
 
