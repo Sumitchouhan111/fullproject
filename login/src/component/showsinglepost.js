@@ -24,6 +24,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { Usermendata } from './Head';
+import { useNavigate } from 'react-router-dom';
 var token = localStorage.getItem('token');
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -47,7 +48,7 @@ function Showsinglepost() {
   const [countlike,setcountlike]=useState(0);
   var userdata = useContext(Usermendata);
   // var params;
-
+  const navigate=useNavigate();
   console.log('asfsdf',userdata);
   
 
@@ -64,7 +65,7 @@ function Showsinglepost() {
   
       
    
-    let postidint=parseInt(postdata)
+    var postidint=parseInt(postdata)
     try {
       let finalpostdata=await axios.post("http://localhost:4000/post/findsinglepost",{
         postid:postidint
@@ -232,11 +233,7 @@ function Showsinglepost() {
             <img src={postuser.profilepic} style={{objectFit: 'cover', width: '100%', height: '100%'}}  />
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings" >
-            <MoreVertIcon style={{color:"white"}} />
-          </IconButton>
-        }
+    
        
         title={postuser.username}
         
@@ -254,7 +251,7 @@ function Showsinglepost() {
           image={pdata.imgvideo}
           alt="Paella dish"
          
-          style={{ objectFit: 'cover', width: '100%', height: '350px',borderRadius:"0%" }}
+          style={{ objectFit: 'fill', width: '100%', height: '350px',borderRadius:"0%" }}
           
         />
       </div>
@@ -266,12 +263,10 @@ function Showsinglepost() {
          
         </IconButton>
         <p style={{color:"white",marginRight:"10px",cursor:"pointer"}}>{countlike}</p>
-        <IconButton aria-label="add to favorites" className="form-container" style={{marginRight:"10px"}}>
+        <IconButton aria-label="add to favorites" className="form-container" style={{marginRight:"10px"}} onClick={()=>navigate(`/commnetbox/${postdata}`)}>
           <CommentIcon style={{color:"white"}}  />
         </IconButton>
-        <IconButton aria-label="share" style={{color:"white",marginRight:"10px"}} className="form-container">
-          <ShareIcon />
-        </IconButton>
+      
         <ExpandMore className="form-container"
         style={{color:"white"}}
           expand={expanded}

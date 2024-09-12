@@ -1,0 +1,117 @@
+/* CommentBox.css */
+
+/* Container for the comments */
+.comment-box {
+  max-height: 70vh; /* Adjust based on your layout */
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #040101; /* Light background for comments */
+  border-radius: 8px; /* Rounded corners */
+  color: #fff;
+  width: 100%;
+ 
+}
+
+.comment-box::-webkit-scrollbar {
+  width: 17px; /* Slimmer scrollbar */
+  color: aqua;
+}
+
+/* Add this to your CommentBox.css or relevant CSS file */
+
+input::placeholder {
+  color: red; /* Placeholder text color */
+  opacity: 1; /* Ensures the color is not faded */
+}
+
+input {
+  color: white; /* Text color */
+  background-color: #333; /* Background color */
+  border: 1px solid #ddd; /* Border */
+  padding: 10px;
+  border-radius: 8px; /* Rounded corners */
+}
+
+/* Each comment entry */
+.comments {
+  display: flex;
+  align-items: flex-start; /* Align items at the top */
+  margin-bottom: 15px; /* Space between comments */
+  background-color: #000000; /* White background for comments */
+  padding: 10px;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Style for the comment image */
+.user-image {
+  width: 45px; /* Fixed width */
+  height: 45px; /* Fixed height */
+  border-radius: 50%; /* Circular images */
+  object-fit: cover; /* Ensure image covers the area */
+  margin-right: 10px; /* Space between image and text */
+}
+
+/* Comment content container */
+.comment-content {
+  max-width: calc(100% - 55px); /* Adjust width based on image size */
+  color: #ffffff; /* Dark text color for readability */
+}
+
+/* Styling the comment input and button */
+.comment-input {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  background-color: #fff; /* White background for input area */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.comment-input input[type="text"] {
+  flex: 1; /* Take up remaining space */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Rounded corners */
+  margin-right: 10px; /* Space between input and button */
+  background-color: #fff; /* White background for input */
+}
+
+.comment-input button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  background-color: #007bff; /* Blue background for button */
+  color: white; /* White text color */
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center; /* Center icon and text */
+}
+
+.comment-input button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.comment-input button i {
+  margin-right: 5px; /* Space between icon and text */
+}
+
+/* Like button styling */
+.like-button {
+  display: flex;
+  align-items: center;
+  color: #007bff; /* Blue color for like button */
+  cursor: pointer;
+}
+
+.like-button:hover {
+  color: #0056b3; /* Darker blue on hover */
+}
+
+.like-button i {
+  margin-right: 5px; /* Space between icon and text */
+}

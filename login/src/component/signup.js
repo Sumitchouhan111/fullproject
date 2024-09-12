@@ -8,13 +8,7 @@ import  axios from 'axios';
 
 function Signup() {
     const navigate=useNavigate();
-
-  
     
-
-  
-
-   
     const handleClick=()=>{
         navigate('/')
     }
@@ -42,6 +36,8 @@ function Signup() {
                 'Content-Type': 'application/json'
               }
             });
+            console.log(response.data.msg);
+            
             window.alert(response.data.msg,'singup succefully')
             navigate('/');
             window.location.reload();

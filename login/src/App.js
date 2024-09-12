@@ -8,6 +8,7 @@ import Ls from './component/logsin';
 import Home from './component/home';
 import Signup from './component/signup';
 
+
 function App() {
 
   let s =localStorage.getItem('email')==null;
@@ -23,8 +24,7 @@ function App() {
   }
   else{
     return  <Head/>
-    
-  
+
   }
   
     

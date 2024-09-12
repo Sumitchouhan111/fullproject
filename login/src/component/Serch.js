@@ -69,7 +69,7 @@ useEffect(() => {
       <CssBaseline  />
       <Paper square sx={{ pb: '50px' }} className=' form-container '  style={{ height: "90%",overflow:"scroll", msOverflowY: "scroll", width: "100%", padding: "5px",overflowX:"hidden",borderRadius:"0px" }}>
         <Typography className='text-white' variant="h5" gutterBottom component="div" sx={{ p: 2, pb: 0 }}>
-          Serch : {serchtext}
+          Search : {serchtext}
         </Typography>
         <List sx={{ mb: 2 }} className='text-white form-container '>
           {console.log("inside div data",catchserchdata)}

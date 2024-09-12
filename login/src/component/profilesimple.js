@@ -41,10 +41,6 @@ function Profilesimple() {
 
         let s=up.data.ans;
         console.log(s);
-        
-    
-        
-          
            return s;
         } catch (error) {
           return  alert("we have some pls solve this error ");
@@ -52,7 +48,6 @@ function Profilesimple() {
     }
 
     async function followcount(params) {
-    
       try {
        
         let followc = await axios.post("http://localhost:4000/follow/followfollowingcount",{
@@ -75,9 +70,6 @@ function Profilesimple() {
           const posts = await userpostdata();
           followcount();
           setallpost(posts);
-         
-         
-          
         };
         fetchdata();
       }, [data]);
@@ -160,7 +152,7 @@ function Profilesimple() {
 
                   
 
-                        <button class="btn btn-primary form-container m-1" href="#">Share profile</button>
+                     
                    
                        
                     

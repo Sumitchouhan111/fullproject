@@ -35,6 +35,9 @@ import Serch from './Serch';
 import Anotheruserprofile from './Anotheruserprofile';
 import CheckFollowList from './checkfollowlist';
 import CheckFollowingList from './checkfollowing';
+import CommentBox from './comment';
+import Deletepost from './Deletepost';
+import Postlikes from './postlikes';
 const drawerWidth = 240;
 var token = localStorage.getItem('token')
 const openedMixin = (theme) => ({
@@ -83,11 +86,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const menuItems = [
   { text: 'Home', icon: <HomeIcon />, path: '/' },
-  { text: 'Notifications', icon: <NotificationsIcon />, path: '/notifications' },
+  // { text: 'Notifications', icon: <NotificationsIcon />, path: '/notifications' },
   {text:'Serch',icon:<SearchIcon/>,path:'/serch'},
 
-  { text: 'Message', icon: <MailIcon />, path: '/inbox' },
-  {text:"Status",icon:<AllInclusiveIcon/>,path:"/status"},
+  // { text: 'Message', icon: <MailIcon />, path: '/inbox' },
+  {text:"posts",icon:<AllInclusiveIcon/>,path:"/status"},
   { text: 'Create', icon: <AddCircleIcon />, path: '/create' },
   { text: 'Profile', icon: <AccountCircleIcon />, path: '/profile' },
   { text: 'Settings', icon: <SettingsIcon />, path: '/settings' }
@@ -173,7 +176,9 @@ export default function Head() {
           <Route path='/anotheruserprofile/:uid' element={<Anotheruserprofile/>}/>
           <Route path='/checkfollowlist/:uid' element={<CheckFollowList/>}/>
           <Route path='/checkfollowing/:uid' element={<CheckFollowingList/>}/>
-          
+          <Route path='/commnetbox/:postid' element={<CommentBox/>}/>
+          {/* <Route path="/deletepost" element={<Deletepost/>}/> */}
+          <Route path = "/checkpostslikes" element={<Postlikes/>}/>
         </Routes>
         </Usermendata.Provider>
 
